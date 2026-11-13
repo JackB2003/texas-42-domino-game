@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #0e2620;
+  font-family: 'Libre Franklin', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* Keyframes lifted from the design prototype. */
+@keyframes t42-fly-pos {
+  from {
+    opacity: 0;
+    transform: translateY(240px) scale(0.62);
+  }
+  65% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes t42-fly-neg {
+  from {
+    opacity: 0;
+    transform: translateY(-240px) scale(0.62);
+  }
+  65% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes t42-shuffle {
+  0% {
+    transform: translate(-3px, 1px) rotate(-4deg);
+  }
+  100% {
+    transform: translate(3px, -1px) rotate(4deg);
+  }
+}
+@keyframes t42-pile-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes t42-deal-out {
+  from {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  16% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translate(var(--dx), var(--dy)) scale(0.46);
+  }
+}
+@keyframes t42-winner-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.t42-winner {
+  animation: t42-winner-pulse 0.5s ease-in-out 2;
+}
+
+@keyframes t42-collect {
+  0%,
+  55% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+}
+
+.t42-mark-seg {
+  transition: background-color 0.45s ease;
+}
+
+@keyframes t42-count-float {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes t42-pulse-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.t42-thinking-dot {
+  animation: t42-pulse-dot 0.9s ease-in-out infinite;
+}
+
+.t42-hand-tile {
+  transition: transform 0.12s ease;
+}
+.t42-hand-tile:hover {
+  transform: translateY(-12px);
+}
+
+/* Modal buttons (design-authoritative). */
+.t42-bid-btn {
+  background: rgba(61, 111, 180, 0.16);
+  border: 1.5px solid rgba(61, 111, 180, 0.55);
+  border-radius: 9px;
+  color: #aecbee;
+  font: 700 14px 'Libre Franklin';
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.t42-bid-btn:hover {
+  background: #3d6fb4;
+  color: #fff;
+}
+.t42-pass-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9px;
+  color: #cdbfa8;
+  font: 700 13px 'Libre Franklin';
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.t42-pass-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.t42-primary-btn {
+  background: #3d6fb4;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.t42-primary-btn:hover {
+  background: #79a6e2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

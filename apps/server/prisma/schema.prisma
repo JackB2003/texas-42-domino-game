@@ -1,0 +1,55 @@
+// Texas 42 persistence schema.
+// Phase 1 does not write to Postgres, but the schema is designed up front so the
+// Phase 2 multiplayer surface (accounts, history, leaderboards) is stable.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  username  String   @unique
+  isGuest   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  stats       PlayerStats?
+  gameResults GameResultPlayer[]
+}
+
+model GameResult {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  marksUs     Int
+  marksThem   Int
+  winnerTeam  String // "us" | "them"
+  handsPlayed Int
+
+  players GameResultPlayer[]
+}
+
+model GameResultPlayer {
+  id           String     @id @default(cuid())
+  gameResult   GameResult @relation(fields: [gameResultId], references: [id], onDelete: Cascade)
+  gameResultId String
+  user         User?      @relation(fields: [userId], references: [id])
+  userId       String?
+  seat         Int
+  team         String
+  isAi         Boolean    @default(false)
+}
+
+model PlayerStats {
+  id         String @id @default(cuid())
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String @unique
+  gamesPlayed  Int  @default(0)
+  gamesWon     Int  @default(0)
+  marksFor     Int  @default(0)
+  marksAgainst Int  @default(0)
+}

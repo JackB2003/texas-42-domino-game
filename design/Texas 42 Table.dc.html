@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@keyframes flyPos { from { opacity:0; transform: translateY(240px) scale(.62); } 65% { opacity:1; } to { opacity:1; transform: translateY(0) scale(1); } }
+@keyframes flyNeg { from { opacity:0; transform: translateY(-240px) scale(.62); } 65% { opacity:1; } to { opacity:1; transform: translateY(0) scale(1); } }
+@keyframes shuffle { 0% { transform: translate(-3px,1px) rotate(-4deg); } 100% { transform: translate(3px,-1px) rotate(4deg); } }
+@keyframes pileOut { from { opacity:1; } to { opacity:0; } }
+@keyframes dealOut { from { opacity:0; transform: translate(0,0) scale(.5); } 16% { opacity:1; } to { opacity:1; transform: translate(var(--dx), var(--dy)) scale(.46); } }
+</style>
+</helmet>
+<div style="width:1280px;height:800px;overflow:hidden;position:relative;font-family:'Libre Franklin',system-ui,sans-serif;background-color:#16352b;background-image:radial-gradient(ellipse 85% 75% at 50% 36%,#2c6450 0%,#1c4538 48%,#0e2620 100%);">
+
+  <!-- TOP HUD BAR -->
+  <div style="position:absolute;top:0;left:0;right:0;height:86px;background:linear-gradient(180deg,#0d1a15,#070f0b);border-bottom:2px solid rgba(61,111,180,.4);display:flex;align-items:center;gap:14px;padding:0 22px;box-sizing:border-box;z-index:20;">
+    <div style="display:flex;align-items:center;gap:11px;">
+      <div style="width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#5A89CE,#3D6FB4);box-shadow:0 4px 10px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;">
+        <span style="font:400 20px 'Rye',serif;color:#F4E9D6;text-shadow:1.5px 1.5px 0 #234A82;line-height:1;">JB</span>
+      </div>
+      <div style="line-height:1.05;"><div style="font:400 16px 'Rye',serif;color:#fff;">JB</div><div style="font:700 9px 'Libre Franklin';color:#E8a06a;letter-spacing:2px;">TEXAS 42</div></div>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="background:linear-gradient(180deg,#5A89CE,#3D6FB4);border-radius:11px;padding:8px 13px;min-width:124px;box-shadow:0 3px 7px rgba(0,0,0,.3);">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font:600 9px 'Libre Franklin';color:#ffe6d2;letter-spacing:1px;">YOUR TEAM</span><span style="font:800 20px 'Libre Franklin';color:#fff;line-height:1;">{{marksUs}}<span style="font-size:10px;opacity:.75;font-weight:600;">/7</span></span></div>
+      <div style="display:flex;gap:3px;margin-top:6px;">
+        <sc-for list="{{ usMarks }}" as="m" hint-placeholder-count="7"><span style="flex:1;height:9px;border-radius:5px;background:{{m.bg}};"></span></sc-for>
+      </div>
+    </div>
+    <div style="background:linear-gradient(180deg,#D4A235,#BF8F2A);border-radius:11px;padding:8px 13px;min-width:124px;box-shadow:0 3px 7px rgba(0,0,0,.3);">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font:600 9px 'Libre Franklin';color:#d6f6f7;letter-spacing:1px;">OTHER TEAM</span><span style="font:800 20px 'Libre Franklin';color:#fff;line-height:1;">{{marksThem}}<span style="font-size:10px;opacity:.75;font-weight:600;">/7</span></span></div>
+      <div style="display:flex;gap:3px;margin-top:6px;">
+        <sc-for list="{{ themMarks }}" as="m" hint-placeholder-count="7"><span style="flex:1;height:9px;border-radius:5px;background:{{m.bg}};"></span></sc-for>
+      </div>
+    </div>
+    <div style="min-width:236px;">
+      <div style="display:flex;justify-content:space-between;color:#e8d9bf;font:600 9px 'Libre Franklin';letter-spacing:1px;"><span>HAND POINTS</span><span style="opacity:.7;">{{counted}} OF 42</span></div>
+      <div style="display:flex;height:20px;border-radius:7px;overflow:hidden;margin-top:6px;background:#000;">
+        <div style="width:{{usPct}};background:#3D6FB4;display:flex;align-items:center;padding-left:10px;color:#fff;font:800 13px 'Libre Franklin';min-width:26px;">{{pointsUs}}</div>
+        <div style="flex:1;background:#BF8F2A;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font:800 13px 'Libre Franklin';">{{pointsThem}}</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(61,111,180,.5);border-radius:11px;padding:7px 15px;display:flex;align-items:center;gap:15px;">
+      <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">BID</div><div style="color:#79A6E2;font:800 19px 'Libre Franklin';line-height:1;">{{bidLabel}}</div></div>
+      <div style="width:1px;height:26px;background:rgba(255,255,255,.12);"></div>
+      <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">TRUMP</div><div style="color:#e8d9bf;font:700 13px 'Libre Franklin';">{{trumpLabel}}</div></div>
+      <div style="width:1px;height:26px;background:rgba(255,255,255,.12);"></div>
+      <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">WON BY</div><div style="color:#e8d9bf;font:700 13px 'Libre Franklin';">{{wonByLabel}}</div></div>
+    </div>
+  </div>
+
+  <!-- TRICK HISTORY RAIL -->
+  <div style="position:absolute;top:100px;right:14px;bottom:14px;width:240px;background:rgba(0,0,0,.36);border-radius:14px;padding:12px;box-sizing:border-box;display:flex;flex-direction:column;gap:9px;z-index:10;">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:9px;">
+      <div style="color:#e8d9bf;font:700 11px 'Libre Franklin';letter-spacing:1.2px;">TRICK HISTORY</div>
+      <div style="color:#9a8a72;font:600 10px 'Libre Franklin';">{{playedCount}} / 7</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;overflow-y:auto;">
+      <sc-for list="{{ railTricks }}" as="tk" hint-placeholder-count="7">
+        <sc-if value="{{ tk.played }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(255,255,255,.05);border:1.5px solid {{tk.tc}};border-radius:10px;padding:7px 9px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;"><span style="color:#cdbfa8;font:600 10px 'Libre Franklin';">Trick {{tk.n}}</span><span style="background:{{tk.tc}};color:#fff;font:700 9px 'Libre Franklin';padding:1px 7px;border-radius:6px;">+{{tk.pts}}</span></div>
+            <div style="display:flex;gap:5px;justify-content:center;align-items:flex-end;height:42px;">
+              <sc-for list="{{ tk.plays }}" as="p" hint-placeholder-count="4"><dc-import name="Domino" top="{{ p.t }}" bottom="{{ p.b }}" w="20" glow="{{ p.glowColor }}" hint-size="20px,39px"></dc-import></sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;margin-top:6px;justify-content:center;"><span style="width:8px;height:8px;border-radius:50%;background:{{tk.tc}};"></span><span style="color:#9a8a72;font:600 9px 'Libre Franklin';">{{tk.won}} won the trick</span></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ tk.pending }}" hint-placeholder-val="{{ true }}">
+          <div style="border:1.5px dashed rgba(255,255,255,.14);border-radius:10px;display:flex;align-items:center;justify-content:center;height:40px;color:#6b5d49;font:600 10px 'Libre Franklin';">Trick {{tk.n}} · not played</div>
+        </sc-if>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- partner -->
+  <div style="position:absolute;top:104px;left:507px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:5px;">
+    <div style="display:flex;align-items:center;gap:11px;">
+      <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#caa07a,#9c6f49);border:3px solid #3D6FB4;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 17px 'Libre Franklin';">W</div>
+      <div style="display:flex;gap:2px;"><sc-for list="{{ partnerBacks }}" as="i" hint-placeholder-count="7"><dc-import name="Domino" face-down="{{ true }}" w="21" hint-size="21px,40px"></dc-import></sc-for></div>
+    </div>
+    <div style="background:#3D6FB4;color:#fff;font:600 11px 'Libre Franklin';padding:2px 12px;border-radius:9px;">Willie · partner</div>
+  </div>
+
+  <!-- left opponent -->
+  <div style="position:absolute;left:24px;top:312px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+    <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#8aa0b4,#5d7488);border:3px solid #D4A235;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px 'Libre Franklin';">Si</div>
+    <div style="background:#BF8F2A;color:#fff;font:600 11px 'Libre Franklin';padding:2px 12px;border-radius:9px;">Uncle Si</div>
+    <div style="display:flex;gap:2px;margin-top:2px;"><sc-for list="{{ leftBacks }}" as="i" hint-placeholder-count="7"><dc-import name="Domino" face-down="{{ true }}" w="19" hint-size="19px,37px"></dc-import></sc-for></div>
+    <div style="color:#cdbfa8;font:600 9px 'Libre Franklin';">{{oppLeft}} left</div>
+  </div>
+
+  <!-- right opponent -->
+  <div style="position:absolute;left:836px;top:312px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+    <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#b48a8a,#885d5d);border:3px solid #D4A235;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px 'Libre Franklin';">Bo</div>
+    <div style="background:#BF8F2A;color:#fff;font:600 11px 'Libre Franklin';padding:2px 12px;border-radius:9px;">Bobby</div>
+    <div style="display:flex;gap:2px;margin-top:2px;"><sc-for list="{{ rightBacks }}" as="i" hint-placeholder-count="7"><dc-import name="Domino" face-down="{{ true }}" w="19" hint-size="19px,37px"></dc-import></sc-for></div>
+    <div style="color:#cdbfa8;font:600 9px 'Libre Franklin';">{{oppRight}} left</div>
+  </div>
+
+  <!-- center trick -->
+  <div style="position:absolute;left:507px;top:336px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;">
+    <div style="position:relative;width:214px;height:198px;">
+      <!-- partner top -->
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);">
+        <sc-if value="{{ cPartner.played }}" hint-placeholder-val="{{ false }}"><div style="animation:flyNeg .44s cubic-bezier(.2,.8,.3,1) both;"><dc-import name="Domino" top="{{ cPartner.t }}" bottom="{{ cPartner.b }}" w="42" glow="{{ cPartner.glow }}" hint-size="42px,81px"></dc-import></div></sc-if>
+        <sc-if value="{{ cPartner.empty }}" hint-placeholder-val="{{ true }}"><div style="width:42px;height:81px;border-radius:8px;border:1px dashed rgba(255,255,255,.12);"></div></sc-if>
+      </div>
+      <!-- left -->
+      <div style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(90deg);">
+        <sc-if value="{{ cLeft.played }}" hint-placeholder-val="{{ false }}"><div style="animation:flyPos .44s cubic-bezier(.2,.8,.3,1) both;"><dc-import name="Domino" top="{{ cLeft.t }}" bottom="{{ cLeft.b }}" w="42" glow="{{ cLeft.glow }}" hint-size="42px,81px"></dc-import></div></sc-if>
+        <sc-if value="{{ cLeft.empty }}" hint-placeholder-val="{{ true }}"><div style="width:42px;height:81px;border-radius:8px;border:1px dashed rgba(255,255,255,.12);"></div></sc-if>
+      </div>
+      <!-- right -->
+      <div style="position:absolute;right:0;top:50%;transform:translateY(-50%) rotate(90deg);">
+        <sc-if value="{{ cRight.played }}" hint-placeholder-val="{{ false }}"><div style="animation:flyNeg .44s cubic-bezier(.2,.8,.3,1) both;"><dc-import name="Domino" top="{{ cRight.t }}" bottom="{{ cRight.b }}" w="42" glow="{{ cRight.glow }}" hint-size="42px,81px"></dc-import></div></sc-if>
+        <sc-if value="{{ cRight.empty }}" hint-placeholder-val="{{ true }}"><div style="width:42px;height:81px;border-radius:8px;border:1px dashed rgba(255,255,255,.12);"></div></sc-if>
+      </div>
+      <!-- you bottom -->
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);">
+        <sc-if value="{{ cYou.played }}" hint-placeholder-val="{{ false }}"><div style="animation:flyPos .44s cubic-bezier(.2,.8,.3,1) both;"><dc-import name="Domino" top="{{ cYou.t }}" bottom="{{ cYou.b }}" w="42" glow="{{ cYou.glow }}" hint-size="42px,81px"></dc-import></div></sc-if>
+        <sc-if value="{{ cYou.empty }}" hint-placeholder-val="{{ true }}"><div style="width:46px;height:84px;border:2px dashed rgba(61,111,180,.85);border-radius:8px;background:rgba(61,111,180,.14);display:flex;align-items:center;justify-content:center;text-align:center;color:#79A6E2;font:700 9px 'Libre Franklin';line-height:1.2;">YOUR<br>PLAY</div></sc-if>
+      </div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(61,111,180,.3);"></div>
+    </div>
+    <div style="background:rgba(0,0,0,.4);border-radius:9px;padding:5px 16px;color:#e8d9bf;font:600 11px 'Libre Franklin';">Trick {{trickNo}} of 7 · Trump: <span style="color:#79A6E2;">{{trumpLabel}}</span> {{turnHint}}</div>
+  </div>
+
+  <!-- my hand -->
+  <div style="position:absolute;left:507px;bottom:18px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:15px;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+      <div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#e3a06a,#c0703a);border:3px solid #3D6FB4;box-shadow:0 3px 8px rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 17px 'Libre Franklin';">You</div>
+      <div style="background:{{youChipBg}};color:#fff;font:600 10px 'Libre Franklin';padding:2px 11px;border-radius:9px;">{{youChip}}</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-end;">
+      <sc-for list="{{ handTiles }}" as="d" hint-placeholder-count="7">
+        <div onClick="{{ d.onPlay }}" style="cursor:pointer;transition:transform .12s ease;" style-hover="transform:translateY(-12px);"><dc-import name="Domino" top="{{ d.t }}" bottom="{{ d.b }}" w="62" glow="{{ d.glow }}" hint-size="62px,120px"></dc-import></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== OVERLAY: SHUFFLE & DEAL ===== -->
+  <sc-if value="{{ showDeal }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:55;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+      <!-- shuffling pile -->
+      <div style="position:absolute;left:507px;top:435px;transform:translate(-50%,-50%);animation:pileOut .4s ease 1.15s both;">
+        <div style="position:relative;width:46px;height:88px;animation:shuffle .24s ease-in-out 5 alternate;">
+          <sc-for list="{{ pileStack }}" as="p" hint-placeholder-count="5">
+            <div style="position:absolute;left:0;top:0;transform:rotate({{p.rot}}) translate({{p.off}});"><dc-import name="Domino" face-down="{{ true }}" w="46" hint-size="46px,88px"></dc-import></div>
+          </sc-for>
+        </div>
+      </div>
+      <!-- tiles dealt out to seats -->
+      <sc-for list="{{ dealTiles }}" as="d" hint-placeholder-count="28">
+        <div style="position:absolute;left:507px;top:435px;margin:-44px 0 0 -23px;--dx:{{d.dx}};--dy:{{d.dy}};animation:dealOut .5s cubic-bezier(.3,.65,.3,1) {{d.delay}} both;"><dc-import name="Domino" face-down="{{ true }}" w="46" hint-size="46px,88px"></dc-import></div>
+      </sc-for>
+      <div style="position:absolute;top:150px;left:507px;transform:translateX(-50%);background:rgba(0,0,0,.55);border-radius:9px;padding:6px 18px;color:#e8d9bf;font:700 13px 'Libre Franklin';letter-spacing:1.5px;">{{dealLabel}}</div>
+    </div>
+  </sc-if>
+
+  <!-- ===== OVERLAY: BIDDING ===== -->
+  <sc-if value="{{ showBid }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(8,20,15,.32);display:flex;align-items:center;justify-content:center;z-index:60;">
+      <div style="width:600px;background:linear-gradient(180deg,#241910,#170f08);border:1.5px solid rgba(61,111,180,.5);border-radius:18px;padding:28px 32px;box-shadow:0 24px 60px rgba(0,0,0,.6);">
+        <div style="font:400 13px 'Rye',serif;color:#E8a06a;letter-spacing:1px;">Hand {{handNo}}</div>
+        <div style="font:700 26px 'Libre Franklin';color:#fff;margin:2px 0 18px;">Bidding</div>
+        <div style="display:flex;gap:9px;margin-bottom:22px;">
+          <sc-for list="{{ bidStatus }}" as="b" hint-placeholder-count="3">
+            <div style="flex:1;background:rgba(255,255,255,.05);border:1px solid {{b.border}};border-radius:10px;padding:9px 10px;text-align:center;">
+              <div style="color:#cdbfa8;font:600 10px 'Libre Franklin';">{{b.name}}</div>
+              <div style="color:{{b.color}};font:800 16px 'Libre Franklin';margin-top:3px;">{{b.bid}}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="color:#e8d9bf;font:600 11px 'Libre Franklin';letter-spacing:1px;margin-bottom:10px;">YOUR BID · must beat 30</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <sc-for list="{{ bidButtons }}" as="b" hint-placeholder-count="14">
+            <div onClick="{{ b.onClick }}" style="min-width:54px;text-align:center;background:rgba(61,111,180,.16);border:1.5px solid rgba(61,111,180,.55);border-radius:9px;padding:10px 12px;color:#AECBEE;font:700 14px 'Libre Franklin';cursor:pointer;transition:all .12s;" style-hover="background:#3D6FB4;color:#fff;">{{b.label}}</div>
+          </sc-for>
+        </div>
+        <div onClick="{{ onPass }}" style="margin-top:16px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:11px;color:#cdbfa8;font:700 13px 'Libre Franklin';cursor:pointer;transition:all .12s;" style-hover="background:rgba(255,255,255,.12);color:#fff;">Pass — let Uncle Si take it at 30</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== OVERLAY: DECLARE TRUMP ===== -->
+  <sc-if value="{{ showTrump }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(8,20,15,.32);display:flex;align-items:center;justify-content:center;z-index:60;">
+      <div style="width:560px;background:linear-gradient(180deg,#241910,#170f08);border:1.5px solid rgba(61,111,180,.5);border-radius:18px;padding:28px 32px;box-shadow:0 24px 60px rgba(0,0,0,.6);">
+        <div style="font:400 13px 'Rye',serif;color:#E8a06a;letter-spacing:1px;">You won the bid with {{bidLabel}}</div>
+        <div style="font:700 26px 'Libre Franklin';color:#fff;margin:2px 0 20px;">Declare trump</div>
+        <div style="display:flex;flex-wrap:wrap;gap:9px;">
+          <sc-for list="{{ trumpButtons }}" as="t" hint-placeholder-count="9">
+            <div onClick="{{ t.onClick }}" style="min-width:78px;text-align:center;background:rgba(61,111,180,.16);border:1.5px solid rgba(61,111,180,.55);border-radius:9px;padding:12px 14px;color:#AECBEE;font:700 14px 'Libre Franklin';cursor:pointer;transition:all .12s;" style-hover="background:#3D6FB4;color:#fff;">{{t.label}}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== OVERLAY: HAND COMPLETE ===== -->
+  <sc-if value="{{ showHandEnd }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(8,20,15,.78);display:flex;align-items:center;justify-content:center;z-index:60;">
+      <div style="width:560px;background:linear-gradient(180deg,#241910,#170f08);border:1.5px solid {{res.color}};border-radius:18px;padding:30px 34px;box-shadow:0 24px 60px rgba(0,0,0,.6);text-align:center;">
+        <div style="font:400 13px 'Rye',serif;color:#E8a06a;letter-spacing:1px;">Hand {{handNo}} complete</div>
+        <div style="font:800 38px 'Libre Franklin';color:{{res.color}};margin:8px 0 4px;letter-spacing:1px;">{{res.verdict}}</div>
+        <div style="color:#cdbfa8;font:500 14px 'Libre Franklin';margin-bottom:22px;">{{res.bidTeamLabel}} bid {{res.bidLabel}} on {{res.trump}} — scored {{res.bidTeamPts}}</div>
+        <div style="display:flex;gap:14px;margin-bottom:22px;">
+          <div style="flex:1;background:rgba(61,111,180,.14);border:1px solid rgba(61,111,180,.4);border-radius:12px;padding:14px;"><div style="color:#79A6E2;font:600 10px 'Libre Franklin';letter-spacing:1px;">YOUR TEAM</div><div style="color:#fff;font:800 30px 'Libre Franklin';">{{res.ptsUs}}</div></div>
+          <div style="flex:1;background:rgba(212,162,53,.14);border:1px solid rgba(212,162,53,.4);border-radius:12px;padding:14px;"><div style="color:#E6C566;font:600 10px 'Libre Franklin';letter-spacing:1px;">OTHER TEAM</div><div style="color:#fff;font:800 30px 'Libre Franklin';">{{res.ptsThem}}</div></div>
+        </div>
+        <div style="color:#e8d9bf;font:600 14px 'Libre Franklin';margin-bottom:22px;">+{{res.marks}} mark{{res.markPlural}} to <span style="color:{{res.color}};">{{res.winLabel}}</span> · now {{marksUs}}–{{marksThem}}</div>
+        <div onClick="{{ onNextHand }}" style="background:#3D6FB4;border-radius:10px;padding:14px;color:#fff;font:700 15px 'Libre Franklin';cursor:pointer;transition:all .12s;" style-hover="background:#79A6E2;">Deal next hand →</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== OVERLAY: GAME OVER ===== -->
+  <sc-if value="{{ showGameOver }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(8,20,15,.85);display:flex;align-items:center;justify-content:center;z-index:60;">
+      <div style="width:520px;background:linear-gradient(180deg,#241910,#170f08);border:1.5px solid {{gameOverColor}};border-radius:18px;padding:38px 34px;box-shadow:0 24px 60px rgba(0,0,0,.6);text-align:center;">
+        <div style="font:400 15px 'Rye',serif;color:#E8a06a;letter-spacing:2px;">JB Texas 42</div>
+        <div style="font:800 44px 'Libre Franklin';color:#fff;margin:10px 0 2px;">Game Over</div>
+        <div style="font:800 26px 'Libre Franklin';color:{{gameOverColor}};margin-bottom:8px;">{{gameOverLabel}} win</div>
+        <div style="color:#cdbfa8;font:600 16px 'Libre Franklin';margin-bottom:26px;">Final marks {{marksUs}} – {{marksThem}}</div>
+        <div onClick="{{ onNewGame }}" style="background:#3D6FB4;border-radius:10px;padding:15px;color:#fff;font:700 16px 'Libre Franklin';cursor:pointer;transition:all .12s;" style-hover="background:#79A6E2;">New game</div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.ORANGE = '#3D6FB4';
+    this.TEAL = '#BF8F2A';
+    this.GOLD = '#F5A623';
+    this.seatTeam = { you: 'us', partner: 'us', left: 'them', right: 'them' };
+    this.seatName = { you: 'You', partner: 'Willie', left: 'Uncle Si', right: 'Bobby' };
+    // scripted opponent plays + winner + points per trick (us hand is strong: 36 pts)
+    this.script = [
+      { others: { left:{t:6,b:5}, partner:{t:6,b:4}, right:{t:6,b:3} }, winner: 'you',     pts: 11 },
+      { others: { left:{t:5,b:4}, partner:{t:5,b:5}, right:{t:5,b:2} }, winner: 'partner', pts: 6  },
+      { others: { left:{t:3,b:1}, partner:{t:2,b:2}, right:{t:3,b:0} }, winner: 'you',     pts: 1  },
+      { others: { left:{t:4,b:4}, partner:{t:1,b:1}, right:{t:4,b:2} }, winner: 'partner', pts: 6  },
+      { others: { left:{t:0,b:0}, partner:{t:5,b:1}, right:{t:4,b:0} }, winner: 'you',     pts: 11 },
+      { others: { left:{t:2,b:0}, partner:{t:3,b:3}, right:{t:1,b:0} }, winner: 'partner', pts: 1  },
+      { others: { left:{t:6,b:6}, partner:{t:2,b:1}, right:{t:6,b:0} }, winner: 'right',   pts: 6  },
+    ];
+    this.state = {
+      phase: 'dealing',
+      marks: { us: 3, them: 2 },
+      handNo: 1,
+      bid: null, bidWinner: null, bidTeam: null, trump: null,
+      hand: this.freshHand(),
+      trickNo: 1,
+      center: { you: null, left: null, partner: null, right: null },
+      tricks: [],
+      points: { us: 0, them: 0 },
+      revealing: false,
+      handResult: null,
+    };
+  }
+
+  componentDidMount() {
+    if (this.state.phase === 'dealing') this.scheduleDeal();
+  }
+  scheduleDeal() {
+    clearTimeout(this._dealT);
+    this._dealT = setTimeout(() => this.setState({ phase: 'bid' }), 2700);
+  }
+  componentWillUnmount() { clearTimeout(this._dealT); }
+
+  freshHand() {
+    return [
+      { t: 6, b: 6 }, { t: 6, b: 4 }, { t: 6, b: 1 },
+      { t: 5, b: 5 }, { t: 3, b: 2 }, { t: 5, b: 0 }, { t: 2, b: 1 },
+    ];
+  }
+
+  trumpSuitNum(name) {
+    const m = { Blanks: 0, Ones: 1, Twos: 2, Threes: 3, Fours: 4, Fives: 5, Sixes: 6 };
+    return name in m ? m[name] : null;
+  }
+  isTrumpTile(tile, trump) {
+    if (!trump) return false;
+    if (trump === 'Doubles') return tile.t === tile.b;
+    if (trump === 'Follow Me') return false;
+    const n = this.trumpSuitNum(trump);
+    return n !== null && (tile.t === n || tile.b === n);
+  }
+
+  placeBid(bid) {
+    this.setState({ phase: 'trump', bid, bidWinner: 'You', bidTeam: 'us' });
+  }
+  onPass() {
+    this.setState({ phase: 'play', bid: { label: 30, target: 30, marks: 1 }, bidWinner: 'Uncle Si', bidTeam: 'them', trump: 'Fives' });
+  }
+  setTrump(name) {
+    this.setState({ phase: 'play', trump: name });
+  }
+
+  playTile(idx) {
+    const s = this.state;
+    if (s.phase !== 'play' || s.revealing || s.center.you) return;
+    const hand = s.hand.slice();
+    const tile = hand.splice(idx, 1)[0];
+    this.setState({ hand, center: { ...s.center, you: tile }, revealing: true });
+    const sc = this.script[s.trickNo - 1];
+    setTimeout(() => this.setState(st => ({ center: { ...st.center, left: sc.others.left } })), 450);
+    setTimeout(() => this.setState(st => ({ center: { ...st.center, partner: sc.others.partner } })), 900);
+    setTimeout(() => this.setState(st => ({ center: { ...st.center, right: sc.others.right } })), 1350);
+    setTimeout(() => this.resolveTrick(), 2300);
+  }
+
+  resolveTrick() {
+    const s = this.state;
+    const sc = this.script[s.trickNo - 1];
+    const winner = sc.winner;
+    const team = this.seatTeam[winner];
+    const c = s.center;
+    const order = ['you', 'left', 'partner', 'right'];
+    const plays = order.map(seat => ({ t: c[seat].t, b: c[seat].b, win: seat === winner }));
+    const trec = { n: s.trickNo, won: this.seatName[winner], team, pts: sc.pts, plays };
+    const tricks = s.tricks.concat([trec]);
+    const points = { ...s.points }; points[team] += sc.pts;
+    const empty = { you: null, left: null, partner: null, right: null };
+    if (s.trickNo >= 7) {
+      this.setState({ tricks, points, center: empty, revealing: false });
+      setTimeout(() => this.endHand(points), 650);
+    } else {
+      this.setState({ tricks, points, trickNo: s.trickNo + 1, center: empty, revealing: false });
+    }
+  }
+
+  endHand(points) {
+    const s = this.state;
+    const made = points[s.bidTeam] >= s.bid.target;
+    const winTeam = made ? s.bidTeam : (s.bidTeam === 'us' ? 'them' : 'us');
+    const marksAwarded = s.bid.marks;
+    const marks = { ...s.marks }; marks[winTeam] += marksAwarded;
+    const result = { made, winTeam, marksAwarded, points: { ...points }, bid: s.bid, bidTeam: s.bidTeam, trump: s.trump };
+    const over = marks.us >= 7 || marks.them >= 7;
+    this.setState({ phase: over ? 'gameOver' : 'handEnd', marks, handResult: result });
+  }
+
+  nextHand() {
+    this.setState({
+      phase: 'dealing', handNo: this.state.handNo + 1,
+      bid: null, bidWinner: null, bidTeam: null, trump: null,
+      hand: this.freshHand(), trickNo: 1,
+      center: { you: null, left: null, partner: null, right: null },
+      tricks: [], points: { us: 0, them: 0 }, revealing: false, handResult: null,
+    }, () => this.scheduleDeal());
+  }
+  newGame() {
+    this.setState({
+      phase: 'dealing', marks: { us: 0, them: 0 }, handNo: 1,
+      bid: null, bidWinner: null, bidTeam: null, trump: null,
+      hand: this.freshHand(), trickNo: 1,
+      center: { you: null, left: null, partner: null, right: null },
+      tricks: [], points: { us: 0, them: 0 }, revealing: false, handResult: null,
+    }, () => this.scheduleDeal());
+  }
+
+  renderVals() {
+    const s = this.state;
+    const O = this.ORANGE, T = this.TEAL;
+    const tc = team => team === 'us' ? O : T;
+    const dealing = s.phase === 'dealing';
+    const fanLen = dealing ? 0 : 7 - s.tricks.length;
+
+    // shuffle pile + dealt-out tiles
+    const pileStack = [
+      { rot: '-9deg', off: '-3px,1px' },
+      { rot: '-4deg', off: '-1px,-1px' },
+      { rot: '0deg', off: '0px,0px' },
+      { rot: '5deg', off: '1px,1px' },
+      { rot: '9deg', off: '3px,-1px' },
+    ];
+    const dealSeats = [
+      { dx: '35px', dy: '285px' },    // you  (hand, bottom)
+      { dx: '-455px', dy: '-25px' },  // left opponent
+      { dx: '30px', dy: '-300px' },   // partner (top)
+      { dx: '355px', dy: '-25px' },   // right opponent
+    ];
+    const dealTiles = [];
+    for (let r = 0; r < 7; r++) {
+      for (let k = 0; k < 4; k++) {
+        const i = r * 4 + k;
+        dealTiles.push({ dx: dealSeats[k].dx, dy: dealSeats[k].dy, delay: (0.95 + i * 0.045).toFixed(2) + 's' });
+      }
+    }
+
+    // marks segments
+    const mk = (n, on, off) => Array.from({ length: 7 }, (_, i) => ({ bg: i < n ? on : off }));
+    const usMarks = mk(s.marks.us, '#fff', 'rgba(255,255,255,.28)');
+    const themMarks = mk(s.marks.them, '#fff', 'rgba(255,255,255,.28)');
+
+    // hand points
+    const counted = s.points.us + s.points.them;
+    const usPct = counted > 0 ? Math.round(s.points.us / counted * 100) + '%' : '50%';
+
+    // center slots
+    const slot = (tile) => tile
+      ? { played: true, empty: false, t: tile.t, b: tile.b, glow: this.isTrumpTile(tile, s.trump) ? this.GOLD : '' }
+      : { played: false, empty: true, t: 0, b: 0, glow: '' };
+
+    // hand (clickable) with trump glow
+    const handTiles = s.hand.map((d, idx) => ({
+      t: d.t, b: d.b,
+      glow: this.isTrumpTile(d, s.trump) ? this.GOLD : '',
+      onPlay: () => this.playTile(idx),
+    }));
+
+    // rail
+    const railTricks = [];
+    for (let i = 0; i < 7; i++) {
+      const rt = s.tricks[i];
+      if (rt) {
+        const color = tc(rt.team);
+        railTricks.push({
+          played: true, pending: false, n: rt.n, won: rt.won, pts: rt.pts, tc: color,
+          plays: rt.plays.map(p => ({ t: p.t, b: p.b, glowColor: p.win ? color : '' })),
+        });
+      } else {
+        railTricks.push({ played: false, pending: true, n: i + 1 });
+      }
+    }
+
+    // bid status chips in overlay
+    const bidStatus = [
+      { name: 'Uncle Si', bid: '30', color: '#AECBEE', border: 'rgba(61,111,180,.6)' },
+      { name: 'Bobby', bid: 'Pass', color: '#9a8a72', border: 'rgba(255,255,255,.12)' },
+      { name: 'Willie', bid: 'Pass', color: '#9a8a72', border: 'rgba(255,255,255,.12)' },
+    ];
+    const bidButtons = [];
+    for (let n = 31; n <= 42; n++) bidButtons.push({ label: String(n), onClick: () => this.placeBid({ label: n, target: n, marks: 1 }) });
+    bidButtons.push({ label: '1 Mark', onClick: () => this.placeBid({ label: '1 Mark', target: 42, marks: 1 }) });
+    bidButtons.push({ label: '2 Marks', onClick: () => this.placeBid({ label: '2 Marks', target: 84, marks: 2 }) });
+
+    const trumpNames = ['Blanks', 'Ones', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Doubles', 'Follow Me'];
+    const trumpButtons = trumpNames.map(name => ({ label: name, onClick: () => this.setTrump(name) }));
+
+    // hand-end result
+    const hr = s.handResult;
+    const res = hr ? {
+      verdict: hr.made ? 'BID MADE' : 'SET',
+      color: hr.made ? '#46C97E' : '#FF6A5E',
+      bidLabel: String(hr.bid.label),
+      bidTeamLabel: hr.bidTeam === 'us' ? 'Your team' : 'Other team',
+      bidTeamPts: hr.points[hr.bidTeam],
+      trump: hr.trump,
+      ptsUs: hr.points.us, ptsThem: hr.points.them,
+      marks: hr.marksAwarded, markPlural: hr.marksAwarded > 1 ? 's' : '',
+      winLabel: hr.winTeam === 'us' ? 'your team' : 'the other team',
+    } : { verdict: '', color: '#fff', bidLabel: '', bidTeamLabel: '', bidTeamPts: 0, trump: '', ptsUs: 0, ptsThem: 0, marks: 0, markPlural: '', winLabel: '' };
+
+    const gameWinner = s.marks.us >= 7 ? 'us' : 'them';
+
+    // chip under your avatar
+    const canPlay = s.phase === 'play' && !s.center.you && !s.revealing;
+    let youChip = 'Waiting…', youChipBg = '#6b5d49';
+    if (canPlay) { youChip = 'Your turn'; youChipBg = O; }
+    else if (s.phase === 'play') { youChip = 'Playing…'; youChipBg = '#8a6a3a'; }
+
+    return {
+      // hud
+      marksUs: s.marks.us, marksThem: s.marks.them, usMarks, themMarks,
+      counted, usPct, pointsUs: s.points.us, pointsThem: s.points.them,
+      bidLabel: s.bid ? String(s.bid.label) : '—',
+      trumpLabel: s.trump || '—',
+      wonByLabel: s.bidWinner || '—',
+      // seats — face-down fans deplete as tricks are played (everyone starts with 7)
+      partnerBacks: Array.from({ length: fanLen }, (_, i) => i),
+      leftBacks: Array.from({ length: fanLen }, (_, i) => i),
+      rightBacks: Array.from({ length: fanLen }, (_, i) => i),
+      oppLeft: fanLen, oppRight: fanLen,
+      // center
+      cYou: slot(s.center.you), cLeft: slot(s.center.left), cPartner: slot(s.center.partner), cRight: slot(s.center.right),
+      trickNo: s.trickNo,
+      turnHint: canPlay ? '· tap a tile to play' : '',
+      // hand
+      handTiles: dealing ? [] : handTiles, youChip, youChipBg,
+      showDeal: dealing, pileStack, dealTiles, dealLabel: 'Shuffling & dealing hand ' + s.handNo,
+      // rail
+      railTricks, playedCount: s.tricks.length,
+      // overlays
+      showBid: s.phase === 'bid', showTrump: s.phase === 'trump',
+      showHandEnd: s.phase === 'handEnd', showGameOver: s.phase === 'gameOver',
+      handNo: s.handNo,
+      bidStatus, bidButtons, trumpButtons,
+      onPass: () => this.onPass(),
+      onNextHand: () => this.nextHand(),
+      onNewGame: () => this.newGame(),
+      res,
+      gameOverColor: gameWinner === 'us' ? O : T,
+      gameOverLabel: gameWinner === 'us' ? 'Your team' : 'Other team',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: texas42-redis
+    ports:
+      - '6379:6379'
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: texas42-postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: texas42
+      POSTGRES_PASSWORD: texas42
+      POSTGRES_DB: texas42
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U texas42']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Optional full stack (server + web). Enable with: docker compose --profile full up
+  server:
+    profiles: ['full']
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - '3001:3001'
+    environment:
+      PORT: 3001
+      HOST: 0.0.0.0
+      CLIENT_ORIGIN: http://localhost:8080
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://texas42:texas42@postgres:5432/texas42?schema=public
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  web:
+    profiles: ['full']
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_SERVER_URL: http://localhost:3001
+    ports:
+      - '8080:80'
+    depends_on:
+      - server
+
+volumes:
+  redis-data:
+  postgres-data:

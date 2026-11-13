@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:{{width}}px;height:{{height}}px;border-radius:9px;background:{{tileBg}};box-shadow:{{shadow}};display:flex;flex-direction:column;overflow:hidden;border:1px solid {{borderC}};position:relative;">
+  <sc-if value="{{ faceDown }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+      <div style="width:72%;height:84%;border-radius:5px;background:linear-gradient(160deg,#F1E9D2,#E0D3B2);box-shadow:inset 0 1px 2px rgba(255,255,255,.65),inset 0 -1px 2px rgba(120,100,60,.3);"></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ faceUp }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:{{padPx}}px;box-sizing:border-box;">
+      <sc-for list="{{ topCells }}" as="c" hint-placeholder-count="9">
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><div style="width:{{dotPx}}px;height:{{dotPx}}px;border-radius:50%;background:{{c.color}};box-shadow:inset 0 -1px 1.5px rgba(0,0,0,.35);"></div></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:{{divBg}};margin:0 11%;border-radius:2px;"></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:{{padPx}}px;box-sizing:border-box;">
+      <sc-for list="{{ bottomCells }}" as="c" hint-placeholder-count="9">
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><div style="width:{{dotPx}}px;height:{{dotPx}}px;border-radius:50%;background:{{c.color}};box-shadow:inset 0 -1px 1.5px rgba(0,0,0,.35);"></div></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:80,&quot;height&quot;:154},&quot;top&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:6,&quot;min&quot;:0,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;},&quot;bottom&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:0,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;},&quot;faceDown&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;w&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:58,&quot;min&quot;:24,&quot;max&quot;:160,&quot;tsType&quot;:&quot;number&quot;},&quot;glow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;ivory&quot;,&quot;options&quot;:[&quot;ivory&quot;,&quot;slate&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const slate = this.props.theme === 'slate';
+    // Standard double-six scheme: 1 lt-blue, 2 green, 3 red, 4 brown, 5 dk-blue, 6 yellow, 0 blank
+    const PIP = slate
+      ? {0:'',1:'#5BB4F0',2:'#46C97E',3:'#FF6A5E',4:'#B07B4A',5:'#5B82E8',6:'#F2C94C'}
+      : {0:'',1:'#3FA0E0',2:'#2E8B57',3:'#CB3B33',4:'#8A5A2B',5:'#1E3A8A',6:'#E0A800'};
+    const PAT = {0:[],1:[4],2:[2,6],3:[2,4,6],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+    const half = (n) => {
+      const s = new Set(PAT[n] || []);
+      return Array.from({length:9}, (_,i) => ({ on: s.has(i), color: PIP[n] }));
+    };
+    const w = Number(this.props.w ?? 58);
+    const top = Number(this.props.top ?? 6);
+    const bottom = Number(this.props.bottom ?? 4);
+    const faceDown = !!this.props.faceDown;
+    const base = '0 3px 5px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.7)';
+    const glow = this.props.glow;
+    return {
+      width: w,
+      height: Math.round(w * 1.92),
+      dotPx: Math.max(3, Math.round(w * 0.155)),
+      padPx: Math.round(w * 0.11),
+      topCells: half(top),
+      bottomCells: half(bottom),
+      faceDown,
+      faceUp: !faceDown,
+      shadow: glow ? (base + ', 0 0 0 3px ' + glow + ', 0 0 16px ' + glow) : base,
+      tileBg: slate ? 'linear-gradient(160deg,#3a414c,#262b33)' : 'linear-gradient(160deg,#FBF7EA,#ECE2C8)',
+      divBg: slate ? 'rgba(255,255,255,.2)' : 'rgba(95,72,40,.4)',
+      borderC: slate ? 'rgba(255,255,255,.12)' : 'rgba(120,100,60,.4)',
+    };
+  }
+}
+</script>
+</body>
+</html>

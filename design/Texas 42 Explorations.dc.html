@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@400;500;600;700&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</helmet>
+<div style="min-height:100vh;background:#E8E8EB;padding:48px 40px 90px;font-family:'Libre Franklin',system-ui,sans-serif;box-sizing:border-box;">
+
+  <!-- PAGE HEADER -->
+  <div style="max-width:1180px;margin:0 auto 8px;">
+    <div style="font:700 13px 'Libre Franklin';letter-spacing:3px;color:#E8731C;text-transform:uppercase;">Texas 42 · Online</div>
+    <h1 style="font:400 40px 'Rye',serif;color:#2a2a2e;margin:6px 0 6px;">Design Explorations</h1>
+    <p style="font:400 15px 'Libre Franklin';color:#5d5d63;max-width:680px;margin:0;line-height:1.5;">Rough directions building on your reference. Profile photos are now small circles, and the missing pieces are surfaced: <b style="color:#2a2a2e;">trick history</b>, <b style="color:#2a2a2e;">team marks</b>, <b style="color:#2a2a2e;">current-hand points</b>, and <b style="color:#2a2a2e;">the bid</b>. Pip colors are keyed to each number. Pick a direction per section and I'll polish it.</p>
+  </div>
+
+  <!-- ===================== SECTION 1: TABLE LAYOUTS ===================== -->
+  <div style="max-width:1180px;margin:46px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid #cfcfd4;padding-bottom:10px;margin-bottom:26px;">
+      <span style="font:800 12px 'Libre Franklin';background:#2a2a2e;color:#fff;padding:4px 10px;border-radius:6px;letter-spacing:1px;">01</span>
+      <h2 style="font:700 24px 'Libre Franklin';color:#2a2a2e;margin:0;">Table layout</h2>
+      <span style="font:400 14px 'Libre Franklin';color:#76767c;">Two seating + HUD arrangements</span>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;">
+
+    <!-- ---------- LAYOUT A: Open table + rails ---------- -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:24px;height:24px;border-radius:50%;background:#E8731C;color:#fff;display:flex;align-items:center;justify-content:center;font:700 12px 'Libre Franklin';">A</span>
+        <span style="font:700 16px 'Libre Franklin';color:#2a2a2e;">Open table</span>
+        <span style="font:400 13px 'Libre Franklin';color:#84848a;">— closest to your reference, rails added</span>
+      </div>
+
+      <div style="width:1100px;height:720px;border-radius:18px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.22);position:relative;background-color:#3b2a18;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.22) 0px,rgba(0,0,0,.22) 3px,transparent 3px,transparent 72px),linear-gradient(180deg,#4f3920,#2b1d0f);">
+
+        <!-- logo -->
+        <div style="position:absolute;top:18px;left:20px;display:flex;align-items:center;gap:10px;">
+          <div style="width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#F59A3C,#E8731C);box-shadow:0 4px 10px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;">
+            <span style="font:400 26px 'Rye',serif;color:#16A0A8;text-shadow:1.5px 1.5px 0 #0b4a4e;line-height:1;">42</span>
+          </div>
+          <div style="line-height:1.05;">
+            <div style="font:400 16px 'Rye',serif;color:#fff;">Shoot</div>
+            <div style="font:700 10px 'Libre Franklin';color:#E8a06a;letter-spacing:2px;">TEXAS 42</div>
+          </div>
+        </div>
+
+        <!-- HUD top-right: marks + points + bid -->
+        <div style="position:absolute;top:16px;right:18px;width:352px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:linear-gradient(180deg,#F08534,#E8731C);border-radius:11px;padding:7px 12px;box-shadow:0 3px 7px rgba(0,0,0,.35);">
+              <div style="font:600 9px 'Libre Franklin';color:#ffe6d2;letter-spacing:1px;">YOUR TEAM · MARKS</div>
+              <div style="font:800 22px 'Libre Franklin';color:#fff;line-height:1.1;">3 <span style="font-size:12px;opacity:.8;font-weight:600;">/ 7</span></div>
+            </div>
+            <div style="flex:1;background:linear-gradient(180deg,#1AB0B8,#15969D);border-radius:11px;padding:7px 12px;box-shadow:0 3px 7px rgba(0,0,0,.35);">
+              <div style="font:600 9px 'Libre Franklin';color:#d6f6f7;letter-spacing:1px;">OTHER TEAM · MARKS</div>
+              <div style="font:800 22px 'Libre Franklin';color:#fff;line-height:1.1;">2 <span style="font-size:12px;opacity:.8;font-weight:600;">/ 7</span></div>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,.36);border-radius:11px;padding:8px 12px;">
+            <div style="display:flex;justify-content:space-between;color:#e8d9bf;font:600 9px 'Libre Franklin';letter-spacing:1px;"><span>HAND POINTS</span><span style="opacity:.7;">21 OF 42 COUNTED</span></div>
+            <div style="display:flex;height:20px;border-radius:6px;overflow:hidden;margin-top:6px;background:#000;">
+              <div style="width:60%;background:#E8731C;display:flex;align-items:center;padding-left:9px;color:#fff;font:800 13px 'Libre Franklin';">21</div>
+              <div style="flex:1;background:#15969D;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#fff;font:800 13px 'Libre Franklin';">14</div>
+            </div>
+          </div>
+          <div style="background:#1c130a;border:1px solid rgba(232,115,28,.5);border-radius:11px;padding:7px 14px;display:flex;justify-content:space-between;align-items:center;">
+            <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">BID</div><div style="color:#F59A3C;font:800 19px 'Libre Franklin';line-height:1;">30</div></div>
+            <div style="width:1px;height:26px;background:rgba(255,255,255,.12);"></div>
+            <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">TRUMP</div><div style="color:#e8d9bf;font:700 13px 'Libre Franklin';">Sixes</div></div>
+            <div style="width:1px;height:26px;background:rgba(255,255,255,.12);"></div>
+            <div style="text-align:right;"><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">WON BY</div><div style="color:#e8d9bf;font:700 13px 'Libre Franklin';">You</div></div>
+          </div>
+        </div>
+
+        <!-- partner top-center -->
+        <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:5px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#caa07a,#9c6f49);border:3px solid #E8731C;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 16px 'Libre Franklin';">W</div>
+            <div style="display:flex;gap:3px;">
+              <sc-for list="{{ fan4 }}" as="i" hint-placeholder-count="4"><dc-import name="Domino" face-down="{{ true }}" w="24" hint-size="24px,46px"></dc-import></sc-for>
+            </div>
+          </div>
+          <div style="background:#E8731C;color:#fff;font:600 11px 'Libre Franklin';padding:2px 11px;border-radius:9px;">Willie · partner</div>
+        </div>
+
+        <!-- left opponent -->
+        <div style="position:absolute;left:22px;top:250px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8aa0b4,#5d7488);border:3px solid #16A0A8;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px 'Libre Franklin';">Si</div>
+          <div style="background:#15969D;color:#fff;font:600 11px 'Libre Franklin';padding:2px 11px;border-radius:9px;">Uncle Si</div>
+          <div style="display:flex;flex-direction:column;gap:3px;align-items:center;">
+            <div style="display:flex;gap:3px;"><sc-for list="{{ fan4 }}" as="i" hint-placeholder-count="4"><dc-import name="Domino" face-down="{{ true }}" w="22" hint-size="22px,42px"></dc-import></sc-for></div>
+            <div style="color:#cdbfa8;font:600 9px 'Libre Franklin';">4 left · led trick</div>
+          </div>
+        </div>
+
+        <!-- right opponent -->
+        <div style="position:absolute;right:22px;top:250px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#b48a8a,#885d5d);border:3px solid #16A0A8;box-shadow:0 3px 7px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;color:#fff;font:700 16px 'Libre Franklin';">Bo</div>
+          <div style="background:#15969D;color:#fff;font:600 11px 'Libre Franklin';padding:2px 11px;border-radius:9px;">Bobby</div>
+          <div style="display:flex;flex-direction:column;gap:3px;align-items:center;">
+            <div style="display:flex;gap:3px;"><sc-for list="{{ fan4 }}" as="i" hint-placeholder-count="4"><dc-import name="Domino" face-down="{{ true }}" w="22" hint-size="22px,42px"></dc-import></sc-for></div>
+            <div style="color:#cdbfa8;font:600 9px 'Libre Franklin';">4 left</div>
+          </div>
+        </div>
+
+        <!-- center trick -->
+        <div style="position:absolute;left:50%;top:206px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="position:relative;width:208px;height:200px;">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 2 }}" w="40" hint-size="40px,77px"></dc-import></div>
+            <div style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(90deg);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 5 }}" w="40" hint-size="40px,77px"></dc-import></div>
+            <div style="position:absolute;right:0;top:50%;transform:translateY(-50%) rotate(90deg);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 0 }}" w="40" hint-size="40px,77px"></dc-import></div>
+            <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:44px;height:82px;border:2px dashed rgba(245,154,60,.85);border-radius:8px;background:rgba(232,115,28,.14);display:flex;align-items:center;justify-content:center;text-align:center;color:#F59A3C;font:700 9px 'Libre Franklin';line-height:1.2;">YOUR<br>PLAY</div>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(245,154,60,.4);"></div>
+          </div>
+          <div style="background:rgba(0,0,0,.4);border-radius:9px;padding:4px 14px;color:#e8d9bf;font:600 11px 'Libre Franklin';">Trick 5 · <span style="color:#F59A3C;">10 count on the table</span></div>
+        </div>
+
+        <!-- trick history strip (bottom) -->
+        <div style="position:absolute;left:20px;right:20px;bottom:150px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.34);border-radius:13px;padding:9px 14px;">
+          <div style="color:#e8d9bf;font:700 10px 'Libre Franklin';letter-spacing:1px;line-height:1.15;border-right:1px solid rgba(255,255,255,.12);padding-right:12px;">TRICKS<br>PLAYED</div>
+          <div style="display:flex;gap:8px;flex:1;">
+            <sc-for list="{{ tricks }}" as="tk" hint-placeholder-count="7">
+              <sc-if value="{{ tk.played }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:5px 0;">
+                  <div style="color:#9a8a72;font:600 9px 'Libre Franklin';">Trick {{tk.n}}</div>
+                  <div style="width:26px;height:26px;border-radius:50%;background:{{tk.tc}};color:#fff;display:flex;align-items:center;justify-content:center;font:700 11px 'Libre Franklin';">{{tk.ini}}</div>
+                  <div style="color:#e8d9bf;font:700 12px 'Libre Franklin';">{{tk.pts}}<span style="font-size:8px;opacity:.7;font-weight:600;"> pt</span></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ tk.pending }}" hint-placeholder-val="{{ true }}">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px dashed rgba(255,255,255,.16);border-radius:9px;padding:5px 0;min-height:62px;color:#6b5d49;font:600 9px 'Libre Franklin';">Trick {{tk.n}}</div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- my hand + avatar -->
+        <div style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:14px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#e3a06a,#c0703a);border:3px solid #E8731C;box-shadow:0 3px 8px rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 17px 'Libre Franklin';">You</div>
+            <div style="background:#E8731C;color:#fff;font:600 10px 'Libre Franklin';padding:2px 10px;border-radius:9px;">Your turn</div>
+          </div>
+          <div style="display:flex;gap:7px;align-items:flex-end;">
+            <sc-for list="{{ hand }}" as="d" hint-placeholder-count="7"><dc-import name="Domino" top="{{ d.t }}" bottom="{{ d.b }}" w="62" glow="{{ d.glow }}" hint-size="62px,120px"></dc-import></sc-for>
+          </div>
+        </div>
+
+      </div>
+      <div style="font:400 12px 'Libre Franklin';color:#84848a;max-width:1100px;line-height:1.5;">Partner across, opponents on the sides, you at the bottom. Marks + hand-points + bid sit top-right; the full trick log runs along a strip above your hand. Trump tiles in your hand glow gold.</div>
+    </div>
+
+    <!-- ---------- LAYOUT B: Felt + HUD bar ---------- -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:24px;height:24px;border-radius:50%;background:#16A0A8;color:#fff;display:flex;align-items:center;justify-content:center;font:700 12px 'Libre Franklin';">B</span>
+        <span style="font:700 16px 'Libre Franklin';color:#2a2a2e;">Felt table + side rail</span>
+        <span style="font:400 13px 'Libre Franklin';color:#84848a;">— consolidated HUD bar, vertical history</span>
+      </div>
+
+      <div style="width:1100px;height:720px;border-radius:18px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.22);position:relative;background-color:#2c2013;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.25) 0px,rgba(0,0,0,.25) 3px,transparent 3px,transparent 80px),linear-gradient(180deg,#3d2c19,#211608);">
+
+        <!-- top HUD bar -->
+        <div style="position:absolute;top:0;left:0;right:0;height:62px;background:linear-gradient(180deg,#1a120a,#120c06);border-bottom:2px solid rgba(232,115,28,.4);display:flex;align-items:center;padding:0 18px;gap:18px;">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#F59A3C,#E8731C);display:flex;align-items:center;justify-content:center;"><span style="font:400 18px 'Rye',serif;color:#16A0A8;text-shadow:1px 1px 0 #0b4a4e;">42</span></div>
+            <div style="font:400 16px 'Rye',serif;color:#fff;">Shoot 42</div>
+          </div>
+          <div style="flex:1;display:flex;justify-content:center;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(232,115,28,.18);border:1px solid rgba(232,115,28,.5);border-radius:10px;padding:5px 14px;">
+              <span style="font:600 9px 'Libre Franklin';color:#F59A3C;letter-spacing:1px;">YOUR TEAM</span>
+              <span style="display:flex;gap:3px;">
+                <span style="width:9px;height:9px;border-radius:50%;background:#E8731C;"></span><span style="width:9px;height:9px;border-radius:50%;background:#E8731C;"></span><span style="width:9px;height:9px;border-radius:50%;background:#E8731C;"></span>
+                <span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(232,115,28,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(232,115,28,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(232,115,28,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(232,115,28,.45);box-sizing:border-box;"></span>
+              </span>
+              <span style="font:800 15px 'Libre Franklin';color:#fff;">3</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(22,160,168,.18);border:1px solid rgba(22,160,168,.5);border-radius:10px;padding:5px 14px;">
+              <span style="font:600 9px 'Libre Franklin';color:#3fd0d8;letter-spacing:1px;">OTHER TEAM</span>
+              <span style="display:flex;gap:3px;">
+                <span style="width:9px;height:9px;border-radius:50%;background:#16A0A8;"></span><span style="width:9px;height:9px;border-radius:50%;background:#16A0A8;"></span>
+                <span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(22,160,168,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(22,160,168,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(22,160,168,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(22,160,168,.45);box-sizing:border-box;"></span><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(22,160,168,.45);box-sizing:border-box;"></span>
+              </span>
+              <span style="font:800 15px 'Libre Franklin';color:#fff;">2</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border-radius:10px;padding:5px 16px;">
+            <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">BID</div><div style="color:#F59A3C;font:800 17px 'Libre Franklin';line-height:1;">30</div></div>
+            <div><div style="color:#9a8a72;font:600 8px 'Libre Franklin';letter-spacing:1px;">TRUMP</div><div style="color:#e8d9bf;font:700 13px 'Libre Franklin';">Sixes</div></div>
+          </div>
+        </div>
+
+        <!-- history rail (right) -->
+        <div style="position:absolute;top:78px;right:14px;bottom:150px;width:150px;background:rgba(0,0,0,.34);border-radius:13px;padding:10px;display:flex;flex-direction:column;gap:7px;">
+          <div style="color:#e8d9bf;font:700 10px 'Libre Franklin';letter-spacing:1px;text-align:center;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:7px;">TRICK HISTORY</div>
+          <sc-for list="{{ tricksShort }}" as="tk" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border-radius:8px;padding:5px 8px;">
+              <div style="color:#9a8a72;font:600 9px 'Libre Franklin';width:14px;">{{tk.n}}</div>
+              <div style="width:22px;height:22px;border-radius:50%;background:{{tk.tc}};color:#fff;display:flex;align-items:center;justify-content:center;font:700 10px 'Libre Franklin';">{{tk.ini}}</div>
+              <div style="color:#e8d9bf;font:700 11px 'Libre Franklin';margin-left:auto;">+{{tk.pts}}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- felt octagon -->
+        <div style="position:absolute;left:42px;top:96px;width:556px;height:392px;border-radius:50%/40%;background:radial-gradient(ellipse at center,#2f7d4f,#1c5234);box-shadow:inset 0 0 60px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.5);border:8px solid #5a3a1f;">
+          <!-- partner -->
+          <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.4);border-radius:18px;padding:4px 12px 4px 4px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#caa07a,#9c6f49);border:2px solid #E8731C;display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 13px 'Libre Franklin';">W</div>
+            <div style="line-height:1.1;"><div style="color:#fff;font:600 11px 'Libre Franklin';">Willie</div><div style="color:#9fb0a4;font:600 9px 'Libre Franklin';">4 tiles</div></div>
+          </div>
+          <!-- left -->
+          <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(0,0,0,.4);border-radius:14px;padding:6px 8px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#8aa0b4,#5d7488);border:2px solid #16A0A8;display:flex;align-items:center;justify-content:center;color:#fff;font:700 13px 'Libre Franklin';">Si</div>
+            <div style="color:#fff;font:600 10px 'Libre Franklin';">Uncle Si</div>
+          </div>
+          <!-- right -->
+          <div style="position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(0,0,0,.4);border-radius:14px;padding:6px 8px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#b48a8a,#885d5d);border:2px solid #16A0A8;display:flex;align-items:center;justify-content:center;color:#fff;font:700 13px 'Libre Franklin';">Bo</div>
+            <div style="color:#fff;font:600 10px 'Libre Franklin';">Bobby</div>
+          </div>
+          <!-- trick in middle -->
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
+            <div style="position:relative;width:170px;height:150px;">
+              <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 2 }}" w="34" hint-size="34px,65px"></dc-import></div>
+              <div style="position:absolute;left:2px;top:50%;transform:translateY(-50%) rotate(90deg);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 5 }}" w="34" hint-size="34px,65px"></dc-import></div>
+              <div style="position:absolute;right:2px;top:50%;transform:translateY(-50%) rotate(90deg);"><dc-import name="Domino" top="{{ 6 }}" bottom="{{ 0 }}" w="34" hint-size="34px,65px"></dc-import></div>
+              <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:38px;height:70px;border:2px dashed rgba(245,154,60,.9);border-radius:7px;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;text-align:center;color:#F59A3C;font:700 8px 'Libre Franklin';line-height:1.2;">YOUR<br>PLAY</div>
+            </div>
+          </div>
+          <!-- hand points pill on felt -->
+          <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;border-radius:9px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.4);">
+            <div style="background:#E8731C;color:#fff;font:800 12px 'Libre Franklin';padding:4px 12px;">21</div>
+            <div style="background:rgba(0,0,0,.6);color:#e8d9bf;font:600 9px 'Libre Franklin';padding:4px 10px;letter-spacing:.5px;">HAND POINTS</div>
+            <div style="background:#15969D;color:#fff;font:800 12px 'Libre Franklin';padding:4px 12px;">14</div>
+          </div>
+        </div>
+
+        <!-- my hand + avatar -->
+        <div style="position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:14px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#e3a06a,#c0703a);border:3px solid #E8731C;box-shadow:0 3px 8px rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;color:#2a1606;font:700 16px 'Libre Franklin';">You</div>
+            <div style="background:#E8731C;color:#fff;font:600 10px 'Libre Franklin';padding:2px 10px;border-radius:9px;">Your turn</div>
+          </div>
+          <div style="display:flex;gap:7px;align-items:flex-end;">
+            <sc-for list="{{ hand }}" as="d" hint-placeholder-count="7"><dc-import name="Domino" top="{{ d.t }}" bottom="{{ d.b }}" w="60" glow="{{ d.glow }}" hint-size="60px,116px"></dc-import></sc-for>
+          </div>
+        </div>
+
+      </div>
+      <div style="font:400 12px 'Libre Franklin';color:#84848a;max-width:1100px;line-height:1.5;">Everything meta moves to chrome: a top status bar (marks shown as fillable pips, plus the bid) and a persistent right-hand trick-history rail. The felt centers attention on play; hand-points ride the felt's edge.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== SECTION 2: TILE STYLES ===================== -->
+  <div style="max-width:1180px;margin:64px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid #cfcfd4;padding-bottom:10px;margin-bottom:26px;">
+      <span style="font:800 12px 'Libre Franklin';background:#2a2a2e;color:#fff;padding:4px 10px;border-radius:6px;letter-spacing:1px;">02</span>
+      <h2 style="font:700 24px 'Libre Franklin';color:#2a2a2e;margin:0;">Domino tile style</h2>
+      <span style="font:400 14px 'Libre Franklin';color:#76767c;">Pips colored by number</span>
+    </div>
+
+    <!-- pip legend -->
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;background:#fff;border-radius:14px;padding:16px 20px;box-shadow:0 4px 14px rgba(0,0,0,.07);">
+      <div style="font:700 12px 'Libre Franklin';color:#2a2a2e;align-self:center;margin-right:8px;letter-spacing:.5px;">PIP KEY</div>
+      <sc-for list="{{ legend }}" as="L" hint-placeholder-count="6">
+        <div style="display:flex;align-items:center;gap:7px;background:#f3f3f5;border-radius:9px;padding:6px 12px;">
+          <span style="width:16px;height:16px;border-radius:50%;background:{{L.c}};box-shadow:inset 0 -1px 1.5px rgba(0,0,0,.3);"></span>
+          <span style="font:600 12px 'Libre Franklin';color:#444;">{{L.label}}</span>
+        </div>
+      </sc-for>
+      <div style="display:flex;align-items:center;gap:7px;background:#f3f3f5;border-radius:9px;padding:6px 12px;"><span style="width:16px;height:16px;border-radius:50%;border:1.5px dashed #bbb;"></span><span style="font:600 12px 'Libre Franklin';color:#444;">0 · blank</span></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:28px;justify-content:center;">
+
+    <!-- tile style 1 -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px;">
+      <div style="font:700 15px 'Libre Franklin';color:#2a2a2e;">1 · Ivory · colored pips</div>
+      <div style="background:#fff;border-radius:14px;padding:26px 20px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;gap:9px;">
+          <dc-import name="Domino" top="{{ 5 }}" bottom="{{ 0 }}" w="52" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 4 }}" bottom="{{ 1 }}" w="52" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 3 }}" bottom="{{ 2 }}" w="52" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 6 }}" bottom="{{ 3 }}" w="52" hint-size="52px,100px"></dc-import>
+        </div>
+        <div style="font:400 12px 'Libre Franklin';color:#76767c;text-align:center;line-height:1.5;">Classic bone tile. Color lives in the pips only — readable, calm, and faithful to a real 42 set.</div>
+      </div>
+    </div>
+
+    <!-- tile style 2 -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px;">
+      <div style="font:700 15px 'Libre Franklin';color:#2a2a2e;">2 · With count + trump glow</div>
+      <div style="background:#fff;border-radius:14px;padding:26px 20px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;gap:9px;align-items:center;">
+          <dc-import name="Domino" top="{{ 5 }}" bottom="{{ 0 }}" w="52" glow="#36b56a" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 5 }}" bottom="{{ 5 }}" w="52" glow="#36b56a" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 6 }}" bottom="{{ 6 }}" w="52" glow="#F5A623" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 6 }}" bottom="{{ 1 }}" w="52" glow="#F5A623" hint-size="52px,100px"></dc-import>
+        </div>
+        <div style="display:flex;gap:16px;font:600 11px 'Libre Franklin';">
+          <span style="display:flex;align-items:center;gap:6px;color:#2a8a4f;"><span style="width:11px;height:11px;border-radius:3px;background:#36b56a;"></span>Count (5/10 pts)</span>
+          <span style="display:flex;align-items:center;gap:6px;color:#b07d12;"><span style="width:11px;height:11px;border-radius:3px;background:#F5A623;"></span>Trump suit</span>
+        </div>
+        <div style="font:400 12px 'Libre Franklin';color:#76767c;text-align:center;line-height:1.5;">Same tile, with gameplay halos — green rings the count dominoes, gold rings trump. Helps new players.</div>
+      </div>
+    </div>
+
+    <!-- tile style 3 -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:360px;">
+      <div style="font:700 15px 'Libre Franklin';color:#2a2a2e;">3 · Dark slate · neon pips</div>
+      <div style="background:#fff;border-radius:14px;padding:26px 20px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="display:flex;gap:9px;">
+          <dc-import name="Domino" top="{{ 5 }}" bottom="{{ 0 }}" w="52" theme="slate" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 4 }}" bottom="{{ 1 }}" w="52" theme="slate" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 3 }}" bottom="{{ 2 }}" w="52" theme="slate" hint-size="52px,100px"></dc-import>
+          <dc-import name="Domino" top="{{ 6 }}" bottom="{{ 3 }}" w="52" theme="slate" hint-size="52px,100px"></dc-import>
+        </div>
+        <div style="font:400 12px 'Libre Franklin';color:#76767c;text-align:center;line-height:1.5;">A modern dark set — brighter pips pop against slate and read well on the wooden table at small sizes.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== SECTION 3: SCOREBOARDS ===================== -->
+  <div style="max-width:1180px;margin:64px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid #cfcfd4;padding-bottom:10px;margin-bottom:26px;">
+      <span style="font:800 12px 'Libre Franklin';background:#2a2a2e;color:#fff;padding:4px 10px;border-radius:6px;letter-spacing:1px;">03</span>
+      <h2 style="font:700 24px 'Libre Franklin';color:#2a2a2e;margin:0;">Scoreboard · marks to 7</h2>
+      <span style="font:400 14px 'Libre Franklin';color:#76767c;">Game score + hand-by-hand log</span>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:28px;justify-content:center;align-items:flex-start;">
+
+    <!-- scoreboard A: pencil "all" card -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:430px;">
+      <div style="font:700 15px 'Libre Franklin';color:#2a2a2e;">A · Pencil scorecard <span style="font-weight:400;color:#84848a;">— spell “ALL” to 7</span></div>
+      <div style="background:#f4ecd8;border-radius:14px;padding:24px;box-shadow:0 4px 14px rgba(0,0,0,.1);background-image:repeating-linear-gradient(0deg,transparent 0px,transparent 33px,rgba(120,90,50,.18) 33px,rgba(120,90,50,.18) 34px);">
+        <div style="display:flex;justify-content:space-between;border-bottom:2px solid #5a4426;padding-bottom:6px;margin-bottom:10px;">
+          <span style="font:400 20px 'Rye',serif;color:#5a4426;">Us</span>
+          <span style="font:400 14px 'Rye',serif;color:#8a6a3a;align-self:center;">marks</span>
+          <span style="font:400 20px 'Rye',serif;color:#5a4426;">Them</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="font:700 46px 'Rye',serif;color:#7a3210;letter-spacing:4px;line-height:1;">ALL</div>
+            <div style="font:600 12px 'Libre Franklin';color:#8a6a3a;">3 of 7 marks</div>
+          </div>
+          <div style="font:600 11px 'Libre Franklin';color:#8a6a3a;text-align:center;width:90px;line-height:1.5;">each letter<br>= one mark<br><span style="font-size:18px;">A·L·L·E·D</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+            <div style="font:700 46px 'Rye',serif;color:#1c6a6e;letter-spacing:4px;line-height:1;">AL</div>
+            <div style="font:600 12px 'Libre Franklin';color:#8a6a3a;">2 of 7 marks</div>
+          </div>
+        </div>
+        <div style="margin-top:18px;border-top:1.5px dashed #b39c74;padding-top:12px;">
+          <div style="font:600 11px 'Libre Franklin';color:#8a6a3a;letter-spacing:1px;margin-bottom:8px;">HANDS PLAYED</div>
+          <sc-for list="{{ hands }}" as="h" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:10px;font:500 13px 'Libre Franklin';color:#5a4426;padding:3px 0;">
+              <span style="width:18px;font-weight:700;">{{h.n}}</span>
+              <span style="flex:1;">{{h.bidder}} bid <b>{{h.bid}}</b> · {{h.trump}}</span>
+              <span style="font-weight:700;color:{{h.tc}};">{{h.result}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="font:400 12px 'Libre Franklin';color:#84848a;max-width:430px;line-height:1.5;">The folk tradition: each mark draws a stroke spelling <i>A-L-L-E-D</i> (“all”), first to 7 wins. Warm, paper-on-table feel; the hand log doubles as bid history.</div>
+    </div>
+
+    <!-- scoreboard B: digital marks -->
+    <div style="display:flex;flex-direction:column;gap:10px;width:430px;">
+      <div style="font:700 15px 'Libre Franklin';color:#2a2a2e;">B · Digital marks <span style="font-weight:400;color:#84848a;">— clean counter</span></div>
+      <div style="background:#1c130a;border-radius:14px;padding:22px;box-shadow:0 4px 14px rgba(0,0,0,.16);">
+        <div style="display:flex;gap:14px;margin-bottom:18px;">
+          <div style="flex:1;background:linear-gradient(180deg,#F08534,#E8731C);border-radius:12px;padding:14px;">
+            <div style="font:600 10px 'Libre Franklin';color:#ffe6d2;letter-spacing:1px;">YOUR TEAM</div>
+            <div style="font:800 40px 'Libre Franklin';color:#fff;line-height:1;margin:4px 0;">3<span style="font-size:16px;opacity:.7;"> / 7</span></div>
+            <div style="display:flex;gap:5px;">
+              <span style="width:13px;height:13px;border-radius:50%;background:#fff;"></span><span style="width:13px;height:13px;border-radius:50%;background:#fff;"></span><span style="width:13px;height:13px;border-radius:50%;background:#fff;"></span>
+              <span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span>
+            </div>
+          </div>
+          <div style="flex:1;background:linear-gradient(180deg,#1AB0B8,#15969D);border-radius:12px;padding:14px;">
+            <div style="font:600 10px 'Libre Franklin';color:#d6f6f7;letter-spacing:1px;">OTHER TEAM</div>
+            <div style="font:800 40px 'Libre Franklin';color:#fff;line-height:1;margin:4px 0;">2<span style="font-size:16px;opacity:.7;"> / 7</span></div>
+            <div style="display:flex;gap:5px;">
+              <span style="width:13px;height:13px;border-radius:50%;background:#fff;"></span><span style="width:13px;height:13px;border-radius:50%;background:#fff;"></span>
+              <span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span><span style="width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.45);box-sizing:border-box;"></span>
+            </div>
+          </div>
+        </div>
+        <div style="font:600 10px 'Libre Franklin';color:#9a8a72;letter-spacing:1px;margin-bottom:8px;">HAND LOG</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <sc-for list="{{ hands }}" as="h" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:8px;padding:7px 11px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:{{h.tc}};color:#fff;display:flex;align-items:center;justify-content:center;font:700 10px 'Libre Franklin';">{{h.n}}</span>
+              <span style="flex:1;color:#e8d9bf;font:500 12px 'Libre Franklin';">{{h.bidder}} · bid {{h.bid}} · {{h.trump}}</span>
+              <span style="color:{{h.tc}};font:700 12px 'Libre Franklin';">{{h.result}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="font:400 12px 'Libre Franklin';color:#84848a;max-width:430px;line-height:1.5;">Big numerals + filled/empty mark dots, with a scrollable hand log showing who bid what and whether they made it. Matches the in-game HUD.</div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const ORANGE = '#E8731C';
+    const TEAL = '#15969D';
+    const hand = [
+      { t: 6, b: 6, glow: '#F5A623' },
+      { t: 6, b: 4, glow: '#F5A623' },
+      { t: 6, b: 1, glow: '#F5A623' },
+      { t: 5, b: 5, glow: '' },
+      { t: 3, b: 2, glow: '' },
+      { t: 5, b: 0, glow: '' },
+      { t: 2, b: 1, glow: '' },
+    ];
+    const tricks = [
+      { n: 1, ini: 'Si', team: 'teal', pts: 0, played: true },
+      { n: 2, ini: 'You', team: 'orange', pts: 5, played: true },
+      { n: 3, ini: 'W', team: 'orange', pts: 10, played: true },
+      { n: 4, ini: 'Bo', team: 'teal', pts: 5, played: true },
+      { n: 5, ini: '', team: '', pts: 0, played: false },
+      { n: 6, ini: '', team: '', pts: 0, played: false },
+      { n: 7, ini: '', team: '', pts: 0, played: false },
+    ].map(t => ({ ...t, pending: !t.played, tc: t.team === 'orange' ? ORANGE : TEAL }));
+
+    const hands = [
+      { n: 1, bidder: 'Bobby', bid: 31, trump: 'Fives', result: 'Set −1', team: 'orange' },
+      { n: 2, bidder: 'You', bid: 30, trump: 'Doubles', result: 'Made +1', team: 'orange' },
+      { n: 3, bidder: 'Uncle Si', bid: 32, trump: 'Threes', result: 'Made +1', team: 'teal' },
+      { n: 4, bidder: 'Willie', bid: '1 mark', trump: 'Sixes', result: 'Made +1', team: 'orange' },
+      { n: 5, bidder: 'Bobby', bid: 30, trump: 'Blanks', result: 'Set −1', team: 'orange' },
+    ].map(h => ({ ...h, tc: h.team === 'orange' ? ORANGE : TEAL }));
+
+    return {
+      hand,
+      fan4: [0, 1, 2, 3],
+      tricks,
+      tricksShort: tricks.filter(t => t.played),
+      hands,
+      legend: [
+        { label: '1', c: '#2660C9' },
+        { label: '2', c: '#2E8B57' },
+        { label: '3', c: '#CB3B33' },
+        { label: '4', c: '#7B4FB5' },
+        { label: '5', c: '#C77A1F' },
+        { label: '6', c: '#1796A0' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Production image for the Texas 42 server.
+# Built from the monorepo root so the workspace packages (@texas42/*) resolve.
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install dependencies using the workspace manifests for better layer caching.
+COPY package.json package-lock.json ./
+COPY packages/shared/package.json packages/shared/
+COPY packages/engine/package.json packages/engine/
+COPY packages/ai/package.json packages/ai/
+COPY apps/server/package.json apps/server/
+COPY apps/web/package.json apps/web/
+RUN npm ci
+
+# Copy the rest of the source.
+COPY tsconfig.base.json ./
+COPY packages ./packages
+COPY apps/server ./apps/server
+
+ENV NODE_ENV=production
+ENV PORT=3001
+ENV HOST=0.0.0.0
+EXPOSE 3001
+
+CMD ["npm", "run", "start", "-w", "@texas42/server"]
